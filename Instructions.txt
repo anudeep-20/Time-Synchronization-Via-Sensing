@@ -1,0 +1,29 @@
+Experiment I:
+1. Connect the GPIO pins of Raspberry Pi and ESP32 as shown in Images/Exp1.
+2. Upload ESP32_Code/ESP32_Exp1/ESP32_Exp1.ino code to ESP32.
+3. Connect the ESP32 to Raspberry Pi using a USB cable.
+4. Open Terminal in Raspberry Pi and run the command "sudo pigpiod".
+5. Create an Empty folder named "Data".
+6. Open RaspberryPi_Code/RPi_Exp1.py code in the Raspberry Pi and edit the 28th and 29th line according to the ESP32 being used, .
+7. Run the RaspberryPi_Code/RPi_Exp1.py code for atleast 7 hours.
+8. Copy the Data folder to your computer.
+9. According to the ESP32 being used, Run the Exp1_02_4A.ipynb or Exp1_10_66.ipynb jupyter notebook for analyzing the collected data.
+
+Experiment II:
+1. Connect the GPIO pins of Raspberry Pi and ESP32 as shown in Images/Exp2
+2. Upload ESP32_Code/ESP32_Exp2/ESP32_Exp2.ino code to ESP32.
+3. Open Terminal in Raspberry Pi and run the command "sudo pigpiod".
+4. Create an Empty folder named "Data".
+5. Open RaspberryPi_Code/RPi_Exp2.py code in the Raspberry Pi and edit the 12,13,25 and 26th line according to the ESP32 being used.
+6. Run the RaspberryPi_Code/RPi_Exp2.py code for atleast 7 hours.
+7. Copy the Data folder to your computer.
+8. According to the ESP32 being used, Run the Exp2_02_4A.ipynb or Exp2_10_66.ipynb jupyter notebook for analyzing the collected data.
+
+Experiment III:
+1. Connect the GPIO pins of ESP32 and Audio Sensor as shown in Images/Exp3
+2. Upload ESP32_Code/ESP32_Exp3/ESP32_Exp3.ino code to ESP32.
+3. Create an Empty folder named "Data".
+4. Open RaspberryPi_Code/RPi_Exp3.py code in the Raspberry Pi and edit the 4,5,17 and 18th line according to the ESP32 being used.
+5. Run the RaspberryPi_Code/RPi_Exp3.py code for atleast 7 hours.
+6. Copy the Data folder to your computer.
+7. According to the ESP32 being used, Run the Exp3_02_4A.ipynb or Exp3_10_66.ipynb jupyter notebook for analyzing the collected data.
