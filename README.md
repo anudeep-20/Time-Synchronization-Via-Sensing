@@ -1,4 +1,5 @@
 # Time Synchronization via Sensing
 
-ECE697SD Networked Embedded Systems Project Repository.
+Repository for ECE697SD Networked Embedded Systems Project.
+
 Please read the Instructions.txt file before using the code. 
