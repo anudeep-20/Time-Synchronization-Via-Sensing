@@ -10,7 +10,7 @@
 #define CHARACTERISTIC_UUID_RX "6E400002-B5A3-F393-E0A9-E50E24DCCA9E"
 #define CHARACTERISTIC_UUID_TX "6E400003-B5A3-F393-E0A9-E50E24DCCA9E"
 
-#define audioSensor A5
+#define audioSensor A5 // ADC pin to which Audio sensor is connected
 
 BLEServer *pServer = NULL;
 BLECharacteristic * pTxCharacteristic;
@@ -35,6 +35,7 @@ class MyServerCallbacks: public BLEServerCallbacks {
     }
 };
 
+// Function to be trigerred on software interrupt
 void IRAM_ATTR onTimer() {   
     pxReadTaskWoken = pdFALSE;
     vTaskNotifyGiveFromISR(httpRead, &pxReadTaskWoken);
@@ -43,6 +44,7 @@ void IRAM_ATTR onTimer() {
     }
 }
 
+// Task for sending Audio sensor value and ESP32 timestamp over BLE
 void httpReadTask(void * parameter) {
     while(true) {
       ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
@@ -78,13 +80,12 @@ void setup() {
   pAdvertising->setScanResponse(true);
   pAdvertising->setMinPreferred(0x06);  //functions that help with iPhone connections issue
   pAdvertising->setMinPreferred(0x12);
-
   BLEDevice::startAdvertising();
   Serial.println("Characteristic defined! Now you can read.");
 
   timer0 = timerBegin(0, 80, true);
-  timerAttachInterrupt(timer0, &onTimer, true);
-  timerAlarmWrite(timer0, 1000000, true);
+  timerAttachInterrupt(timer0, &onTimer, true); // Linking software interrupt and Interrupt function
+  timerAlarmWrite(timer0, 1000000, true); // Start the timer to trigger software interrupt every 1000000μs
   timerAlarmEnable(timer0);
 
   xTaskCreatePinnedToCore(  httpReadTask, // function to implement task

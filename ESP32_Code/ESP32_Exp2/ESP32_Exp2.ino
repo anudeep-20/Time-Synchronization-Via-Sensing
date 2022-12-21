@@ -10,7 +10,7 @@
 #define CHARACTERISTIC_UUID_RX "6E400002-B5A3-F393-E0A9-E50E24DCCA9E"
 #define CHARACTERISTIC_UUID_TX "6E400003-B5A3-F393-E0A9-E50E24DCCA9E"
 
-#define PWMpin 12
+#define PWMpin 12 // PWM pin to which Raspberry Pi is connected
 
 BLEServer *pServer = NULL;
 BLECharacteristic * pTxCharacteristic;
@@ -30,6 +30,7 @@ class MyServerCallbacks: public BLEServerCallbacks {
     }
 };
 
+// Function to be trigerred on hardware interrupt
 void IRAM_ATTR ISR() {   
     pxReadTaskWoken = pdFALSE;
     vTaskNotifyGiveFromISR(httpRead, &pxReadTaskWoken);
@@ -38,6 +39,7 @@ void IRAM_ATTR ISR() {
     }
 }
 
+// Task for sending ESP32 timestamp over BLE
 void httpReadTask(void * parameter){
     while(true) {
       ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
@@ -53,6 +55,7 @@ void setup() {
  
   BLEDevice::init("UART Service");
 
+  // Create the BLE Server
   pServer = BLEDevice::createServer();
   pServer->setCallbacks(new MyServerCallbacks());
 
@@ -74,7 +77,7 @@ void setup() {
   Serial.println("Characteristic defined! Now you can read.");
 
   pinMode(PWMpin, INPUT_PULLUP);
-	attachInterrupt(PWMpin, ISR, FALLING);
+	attachInterrupt(PWMpin, ISR, FALLING); // Linking PWM falling edge and Interrupt function
  
   xTaskCreatePinnedToCore(  httpReadTask, // function to implement task
                             "httpRead",   // Task name
